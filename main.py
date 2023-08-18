@@ -55,26 +55,23 @@ frame.pack()  # place widget
 cars_info_frame = tkinter.LabelFrame(frame, text='Available Cars', font=font_params)  # tkinter.$$$(PARENT, PARAMS)
 cars_info_frame.grid(row=0, column=0, padx=20, pady=10, sticky='news')  # sticky='news' - expand frame NorthEastWestSouth
 
-car_01_image = tkinter.PhotoImage(file='car_red_01.png')
-car_01_image_label = tkinter.Label(cars_info_frame, image=car_01_image)
-car_01_image_label.grid(row=0, column=0)
 
-car_01_info = tkinter.Label(cars_info_frame, text=cars_obj_list[0].__str__(), font=font_params)
-car_01_info.grid(row=0, column=1, sticky='w')
+#
+# CAR image-label draw
+class CarImageLabel:
+    def __init__(self, frame_name, row, image, description):
+        self.column = 0
+        self.image = tkinter.PhotoImage(file=image)
+        self.image_label = tkinter.Label(frame_name, image=self.image)
+        self.image_label.grid(row=row, column=self.column)
 
-car_02_image = tkinter.PhotoImage(file='car_green_01.png')
-car_02_image_label = tkinter.Label(cars_info_frame, image=car_02_image)
-car_02_image_label.grid(row=1, column=0)
+        self.info = tkinter.Label(frame_name, text=description, font=font_params)
+        self.info.grid(row=row, column=self.column+1, sticky='w')
 
-car_02_info = tkinter.Label(cars_info_frame, text=cars_obj_list[1].__str__(), font=font_params)
-car_02_info.grid(row=1, column=1, sticky='w')
 
-car_03_image = tkinter.PhotoImage(file='car_white_01.png')
-car_03_image_label = tkinter.Label(cars_info_frame, image=car_03_image)
-car_03_image_label.grid(row=2, column=0)
-
-car_03_info = tkinter.Label(cars_info_frame, text=cars_obj_list[2].__str__(), font=font_params)
-car_03_info.grid(row=2, column=1, sticky='w')
+car_01 = CarImageLabel(cars_info_frame, 0, 'car_red_01.png', cars_obj_list[0].__str__())
+car_02 = CarImageLabel(cars_info_frame, 1, 'car_green_01.png',cars_obj_list[1].__str__())
+car_03 = CarImageLabel(cars_info_frame, 2, 'car_white_01.png', cars_obj_list[2].__str__())
 
 for widget in cars_info_frame.winfo_children():  # Spacing Cars elements
     widget.grid_configure(padx=10, pady=5)
